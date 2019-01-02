@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html><head><title>OpenCv Sample: ColorBlob Detector – Medium</title><meta name="description" content="GitHub is where people build software. More than 28 million people use GitHub to discover, fork, and contribute to over 85 million projects."><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="twitter:widgets:csp" content="on"><meta name="robots" content="noindex"><!-- base href="https://android.jlelse.eu/media/8c25c7e1a2800815f04ea740bb71aef3?postId=19794e220f3c" --><style>body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: "ff-tisa-web-pro", Georgia, Cambria, "Times New Roman", Times, serif; font-weight: 400; color: #333332; font-size: 18px; line-height: 1.4; margin: 0; background-color: white; overflow: hidden;}iframe {max-width: 100%;}</style></head><body><style>.gist .gist-file { margin-bottom: 0 !important; }.gist { text-rendering: auto; }</style><script src="8c25c7e1a2800815f04ea740bb71aef3_data/a948cd51db03cd8accead15d92cbb142.js" charset="utf-8"></script><link rel="stylesheet" href="ef08a785f5cb62a7beba85754f768e95_data/gist-embed-008c1f8902a4b39d6abe3c79640a748e.css"><div id="gist90366299" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-colorblobdetector-java" class="file">
+    
+
+  <div itemprop="text" class="blob-wrapper data type-java ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+      <tbody><tr>
+        <td id="file-colorblobdetector-java-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-colorblobdetector-java-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">package</span> <span class="pl-smi">com.mobymagic.opencvproject</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-colorblobdetector-java-LC2" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-colorblobdetector-java-LC3" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">java.util.ArrayList</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-colorblobdetector-java-LC4" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">java.util.Iterator</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-colorblobdetector-java-LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">java.util.List</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-colorblobdetector-java-LC6" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-colorblobdetector-java-LC7" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">org.opencv.core.Core</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-colorblobdetector-java-LC8" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">org.opencv.core.CvType</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-colorblobdetector-java-LC9" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">org.opencv.core.Mat</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-colorblobdetector-java-LC10" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">org.opencv.core.MatOfPoint</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-colorblobdetector-java-LC11" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">org.opencv.core.Scalar</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-colorblobdetector-java-LC12" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-smi">org.opencv.imgproc.Imgproc</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-colorblobdetector-java-LC13" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-colorblobdetector-java-LC14" class="blob-code blob-code-inner js-file-line"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">ColorBlobDetector</span> {</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-colorblobdetector-java-LC15" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">//</span> Lower and Upper bounds for range checking in HSV color space</span></td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-colorblobdetector-java-LC16" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">private</span> <span class="pl-smi">Scalar</span> mLowerBound <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Scalar</span>(<span class="pl-c1">0</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-colorblobdetector-java-LC17" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">private</span> <span class="pl-smi">Scalar</span> mUpperBound <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Scalar</span>(<span class="pl-c1">0</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-colorblobdetector-java-LC18" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">//</span> Minimum contour area in percent for contours filtering</span></td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="file-colorblobdetector-java-LC19" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-k">double</span> mMinContourArea <span class="pl-k">=</span> <span class="pl-c1">0.1</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="file-colorblobdetector-java-LC20" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">//</span> Color radius for range checking in HSV color space</span></td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L21" class="blob-num js-line-number" data-line-number="21"></td>
+        <td id="file-colorblobdetector-java-LC21" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">private</span> <span class="pl-smi">Scalar</span> mColorRadius <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Scalar</span>(<span class="pl-c1">25</span>,<span class="pl-c1">50</span>,<span class="pl-c1">50</span>,<span class="pl-c1">0</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L22" class="blob-num js-line-number" data-line-number="22"></td>
+        <td id="file-colorblobdetector-java-LC22" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">private</span> <span class="pl-smi">Mat</span> mSpectrum <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Mat</span>();</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L23" class="blob-num js-line-number" data-line-number="23"></td>
+        <td id="file-colorblobdetector-java-LC23" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">private</span> <span class="pl-k">List&lt;<span class="pl-smi">MatOfPoint</span>&gt;</span> mContours <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-k">ArrayList&lt;<span class="pl-smi">MatOfPoint</span>&gt;</span>();</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L24" class="blob-num js-line-number" data-line-number="24"></td>
+        <td id="file-colorblobdetector-java-LC24" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L25" class="blob-num js-line-number" data-line-number="25"></td>
+        <td id="file-colorblobdetector-java-LC25" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">//</span> Cache</span></td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L26" class="blob-num js-line-number" data-line-number="26"></td>
+        <td id="file-colorblobdetector-java-LC26" class="blob-code blob-code-inner js-file-line">    <span class="pl-smi">Mat</span> mPyrDownMat <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Mat</span>();</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L27" class="blob-num js-line-number" data-line-number="27"></td>
+        <td id="file-colorblobdetector-java-LC27" class="blob-code blob-code-inner js-file-line">    <span class="pl-smi">Mat</span> mHsvMat <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Mat</span>();</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L28" class="blob-num js-line-number" data-line-number="28"></td>
+        <td id="file-colorblobdetector-java-LC28" class="blob-code blob-code-inner js-file-line">    <span class="pl-smi">Mat</span> mMask <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Mat</span>();</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L29" class="blob-num js-line-number" data-line-number="29"></td>
+        <td id="file-colorblobdetector-java-LC29" class="blob-code blob-code-inner js-file-line">    <span class="pl-smi">Mat</span> mDilatedMask <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Mat</span>();</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L30" class="blob-num js-line-number" data-line-number="30"></td>
+        <td id="file-colorblobdetector-java-LC30" class="blob-code blob-code-inner js-file-line">    <span class="pl-smi">Mat</span> mHierarchy <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Mat</span>();</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L31" class="blob-num js-line-number" data-line-number="31"></td>
+        <td id="file-colorblobdetector-java-LC31" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L32" class="blob-num js-line-number" data-line-number="32"></td>
+        <td id="file-colorblobdetector-java-LC32" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">setColorRadius</span>(<span class="pl-smi">Scalar</span> <span class="pl-v">radius</span>) {</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L33" class="blob-num js-line-number" data-line-number="33"></td>
+        <td id="file-colorblobdetector-java-LC33" class="blob-code blob-code-inner js-file-line">        mColorRadius <span class="pl-k">=</span> radius;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L34" class="blob-num js-line-number" data-line-number="34"></td>
+        <td id="file-colorblobdetector-java-LC34" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L35" class="blob-num js-line-number" data-line-number="35"></td>
+        <td id="file-colorblobdetector-java-LC35" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L36" class="blob-num js-line-number" data-line-number="36"></td>
+        <td id="file-colorblobdetector-java-LC36" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">setHsvColor</span>(<span class="pl-smi">Scalar</span> <span class="pl-v">hsvColor</span>) {</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L37" class="blob-num js-line-number" data-line-number="37"></td>
+        <td id="file-colorblobdetector-java-LC37" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">double</span> minH <span class="pl-k">=</span> (hsvColor<span class="pl-k">.</span>val[<span class="pl-c1">0</span>] <span class="pl-k">&gt;=</span> mColorRadius<span class="pl-k">.</span>val[<span class="pl-c1">0</span>]) <span class="pl-k">?</span> hsvColor<span class="pl-k">.</span>val[<span class="pl-c1">0</span>]<span class="pl-k">-</span>mColorRadius<span class="pl-k">.</span>val[<span class="pl-c1">0</span>] <span class="pl-k">:</span> <span class="pl-c1">0</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L38" class="blob-num js-line-number" data-line-number="38"></td>
+        <td id="file-colorblobdetector-java-LC38" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">double</span> maxH <span class="pl-k">=</span> (hsvColor<span class="pl-k">.</span>val[<span class="pl-c1">0</span>]<span class="pl-k">+</span>mColorRadius<span class="pl-k">.</span>val[<span class="pl-c1">0</span>] <span class="pl-k">&lt;=</span> <span class="pl-c1">255</span>) <span class="pl-k">?</span> hsvColor<span class="pl-k">.</span>val[<span class="pl-c1">0</span>]<span class="pl-k">+</span>mColorRadius<span class="pl-k">.</span>val[<span class="pl-c1">0</span>] <span class="pl-k">:</span> <span class="pl-c1">255</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L39" class="blob-num js-line-number" data-line-number="39"></td>
+        <td id="file-colorblobdetector-java-LC39" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L40" class="blob-num js-line-number" data-line-number="40"></td>
+        <td id="file-colorblobdetector-java-LC40" class="blob-code blob-code-inner js-file-line">        mLowerBound<span class="pl-k">.</span>val[<span class="pl-c1">0</span>] <span class="pl-k">=</span> minH;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L41" class="blob-num js-line-number" data-line-number="41"></td>
+        <td id="file-colorblobdetector-java-LC41" class="blob-code blob-code-inner js-file-line">        mUpperBound<span class="pl-k">.</span>val[<span class="pl-c1">0</span>] <span class="pl-k">=</span> maxH;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L42" class="blob-num js-line-number" data-line-number="42"></td>
+        <td id="file-colorblobdetector-java-LC42" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L43" class="blob-num js-line-number" data-line-number="43"></td>
+        <td id="file-colorblobdetector-java-LC43" class="blob-code blob-code-inner js-file-line">        mLowerBound<span class="pl-k">.</span>val[<span class="pl-c1">1</span>] <span class="pl-k">=</span> hsvColor<span class="pl-k">.</span>val[<span class="pl-c1">1</span>] <span class="pl-k">-</span> mColorRadius<span class="pl-k">.</span>val[<span class="pl-c1">1</span>];</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L44" class="blob-num js-line-number" data-line-number="44"></td>
+        <td id="file-colorblobdetector-java-LC44" class="blob-code blob-code-inner js-file-line">        mUpperBound<span class="pl-k">.</span>val[<span class="pl-c1">1</span>] <span class="pl-k">=</span> hsvColor<span class="pl-k">.</span>val[<span class="pl-c1">1</span>] <span class="pl-k">+</span> mColorRadius<span class="pl-k">.</span>val[<span class="pl-c1">1</span>];</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L45" class="blob-num js-line-number" data-line-number="45"></td>
+        <td id="file-colorblobdetector-java-LC45" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L46" class="blob-num js-line-number" data-line-number="46"></td>
+        <td id="file-colorblobdetector-java-LC46" class="blob-code blob-code-inner js-file-line">        mLowerBound<span class="pl-k">.</span>val[<span class="pl-c1">2</span>] <span class="pl-k">=</span> hsvColor<span class="pl-k">.</span>val[<span class="pl-c1">2</span>] <span class="pl-k">-</span> mColorRadius<span class="pl-k">.</span>val[<span class="pl-c1">2</span>];</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L47" class="blob-num js-line-number" data-line-number="47"></td>
+        <td id="file-colorblobdetector-java-LC47" class="blob-code blob-code-inner js-file-line">        mUpperBound<span class="pl-k">.</span>val[<span class="pl-c1">2</span>] <span class="pl-k">=</span> hsvColor<span class="pl-k">.</span>val[<span class="pl-c1">2</span>] <span class="pl-k">+</span> mColorRadius<span class="pl-k">.</span>val[<span class="pl-c1">2</span>];</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L48" class="blob-num js-line-number" data-line-number="48"></td>
+        <td id="file-colorblobdetector-java-LC48" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L49" class="blob-num js-line-number" data-line-number="49"></td>
+        <td id="file-colorblobdetector-java-LC49" class="blob-code blob-code-inner js-file-line">        mLowerBound<span class="pl-k">.</span>val[<span class="pl-c1">3</span>] <span class="pl-k">=</span> <span class="pl-c1">0</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L50" class="blob-num js-line-number" data-line-number="50"></td>
+        <td id="file-colorblobdetector-java-LC50" class="blob-code blob-code-inner js-file-line">        mUpperBound<span class="pl-k">.</span>val[<span class="pl-c1">3</span>] <span class="pl-k">=</span> <span class="pl-c1">255</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L51" class="blob-num js-line-number" data-line-number="51"></td>
+        <td id="file-colorblobdetector-java-LC51" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L52" class="blob-num js-line-number" data-line-number="52"></td>
+        <td id="file-colorblobdetector-java-LC52" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">Mat</span> spectrumHsv <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Mat</span>(<span class="pl-c1">1</span>, (<span class="pl-k">int</span>)(maxH<span class="pl-k">-</span>minH), <span class="pl-smi">CvType</span><span class="pl-c1"><span class="pl-k">.</span>CV_8UC3</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L53" class="blob-num js-line-number" data-line-number="53"></td>
+        <td id="file-colorblobdetector-java-LC53" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L54" class="blob-num js-line-number" data-line-number="54"></td>
+        <td id="file-colorblobdetector-java-LC54" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">for</span> (<span class="pl-k">int</span> j <span class="pl-k">=</span> <span class="pl-c1">0</span>; j <span class="pl-k">&lt;</span> maxH<span class="pl-k">-</span>minH; j<span class="pl-k">++</span>) {</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L55" class="blob-num js-line-number" data-line-number="55"></td>
+        <td id="file-colorblobdetector-java-LC55" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">byte</span>[] tmp <span class="pl-k">=</span> {(<span class="pl-k">byte</span>)(minH<span class="pl-k">+</span>j), (<span class="pl-k">byte</span>)<span class="pl-c1">255</span>, (<span class="pl-k">byte</span>)<span class="pl-c1">255</span>};</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L56" class="blob-num js-line-number" data-line-number="56"></td>
+        <td id="file-colorblobdetector-java-LC56" class="blob-code blob-code-inner js-file-line">            spectrumHsv<span class="pl-k">.</span>put(<span class="pl-c1">0</span>, j, tmp);</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L57" class="blob-num js-line-number" data-line-number="57"></td>
+        <td id="file-colorblobdetector-java-LC57" class="blob-code blob-code-inner js-file-line">        }</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L58" class="blob-num js-line-number" data-line-number="58"></td>
+        <td id="file-colorblobdetector-java-LC58" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L59" class="blob-num js-line-number" data-line-number="59"></td>
+        <td id="file-colorblobdetector-java-LC59" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">Imgproc</span><span class="pl-k">.</span>cvtColor(spectrumHsv, mSpectrum, <span class="pl-smi">Imgproc</span><span class="pl-c1"><span class="pl-k">.</span>COLOR_HSV2RGB_FULL</span>, <span class="pl-c1">4</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L60" class="blob-num js-line-number" data-line-number="60"></td>
+        <td id="file-colorblobdetector-java-LC60" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L61" class="blob-num js-line-number" data-line-number="61"></td>
+        <td id="file-colorblobdetector-java-LC61" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L62" class="blob-num js-line-number" data-line-number="62"></td>
+        <td id="file-colorblobdetector-java-LC62" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-smi">Mat</span> <span class="pl-en">getSpectrum</span>() {</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L63" class="blob-num js-line-number" data-line-number="63"></td>
+        <td id="file-colorblobdetector-java-LC63" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">return</span> mSpectrum;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L64" class="blob-num js-line-number" data-line-number="64"></td>
+        <td id="file-colorblobdetector-java-LC64" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L65" class="blob-num js-line-number" data-line-number="65"></td>
+        <td id="file-colorblobdetector-java-LC65" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L66" class="blob-num js-line-number" data-line-number="66"></td>
+        <td id="file-colorblobdetector-java-LC66" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">setMinContourArea</span>(<span class="pl-k">double</span> <span class="pl-v">area</span>) {</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L67" class="blob-num js-line-number" data-line-number="67"></td>
+        <td id="file-colorblobdetector-java-LC67" class="blob-code blob-code-inner js-file-line">        mMinContourArea <span class="pl-k">=</span> area;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L68" class="blob-num js-line-number" data-line-number="68"></td>
+        <td id="file-colorblobdetector-java-LC68" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L69" class="blob-num js-line-number" data-line-number="69"></td>
+        <td id="file-colorblobdetector-java-LC69" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L70" class="blob-num js-line-number" data-line-number="70"></td>
+        <td id="file-colorblobdetector-java-LC70" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">process</span>(<span class="pl-smi">Mat</span> <span class="pl-v">rgbaImage</span>) {</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L71" class="blob-num js-line-number" data-line-number="71"></td>
+        <td id="file-colorblobdetector-java-LC71" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">Imgproc</span><span class="pl-k">.</span>pyrDown(rgbaImage, mPyrDownMat);</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L72" class="blob-num js-line-number" data-line-number="72"></td>
+        <td id="file-colorblobdetector-java-LC72" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">Imgproc</span><span class="pl-k">.</span>pyrDown(mPyrDownMat, mPyrDownMat);</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L73" class="blob-num js-line-number" data-line-number="73"></td>
+        <td id="file-colorblobdetector-java-LC73" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L74" class="blob-num js-line-number" data-line-number="74"></td>
+        <td id="file-colorblobdetector-java-LC74" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">Imgproc</span><span class="pl-k">.</span>cvtColor(mPyrDownMat, mHsvMat, <span class="pl-smi">Imgproc</span><span class="pl-c1"><span class="pl-k">.</span>COLOR_RGB2HSV_FULL</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L75" class="blob-num js-line-number" data-line-number="75"></td>
+        <td id="file-colorblobdetector-java-LC75" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L76" class="blob-num js-line-number" data-line-number="76"></td>
+        <td id="file-colorblobdetector-java-LC76" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">Core</span><span class="pl-k">.</span>inRange(mHsvMat, mLowerBound, mUpperBound, mMask);</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L77" class="blob-num js-line-number" data-line-number="77"></td>
+        <td id="file-colorblobdetector-java-LC77" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">Imgproc</span><span class="pl-k">.</span>dilate(mMask, mDilatedMask, <span class="pl-k">new</span> <span class="pl-smi">Mat</span>());</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L78" class="blob-num js-line-number" data-line-number="78"></td>
+        <td id="file-colorblobdetector-java-LC78" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L79" class="blob-num js-line-number" data-line-number="79"></td>
+        <td id="file-colorblobdetector-java-LC79" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">List&lt;<span class="pl-smi">MatOfPoint</span>&gt;</span> contours <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-k">ArrayList&lt;<span class="pl-smi">MatOfPoint</span>&gt;</span>();</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L80" class="blob-num js-line-number" data-line-number="80"></td>
+        <td id="file-colorblobdetector-java-LC80" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L81" class="blob-num js-line-number" data-line-number="81"></td>
+        <td id="file-colorblobdetector-java-LC81" class="blob-code blob-code-inner js-file-line">        <span class="pl-smi">Imgproc</span><span class="pl-k">.</span>findContours(mDilatedMask, contours, mHierarchy, <span class="pl-smi">Imgproc</span><span class="pl-c1"><span class="pl-k">.</span>RETR_EXTERNAL</span>, <span class="pl-smi">Imgproc</span><span class="pl-c1"><span class="pl-k">.</span>CHAIN_APPROX_SIMPLE</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L82" class="blob-num js-line-number" data-line-number="82"></td>
+        <td id="file-colorblobdetector-java-LC82" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L83" class="blob-num js-line-number" data-line-number="83"></td>
+        <td id="file-colorblobdetector-java-LC83" class="blob-code blob-code-inner js-file-line">        <span class="pl-c"><span class="pl-c">//</span> Find max contour area</span></td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L84" class="blob-num js-line-number" data-line-number="84"></td>
+        <td id="file-colorblobdetector-java-LC84" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">double</span> maxArea <span class="pl-k">=</span> <span class="pl-c1">0</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L85" class="blob-num js-line-number" data-line-number="85"></td>
+        <td id="file-colorblobdetector-java-LC85" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">Iterator&lt;<span class="pl-smi">MatOfPoint</span>&gt;</span> each <span class="pl-k">=</span> contours<span class="pl-k">.</span>iterator();</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L86" class="blob-num js-line-number" data-line-number="86"></td>
+        <td id="file-colorblobdetector-java-LC86" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">while</span> (each<span class="pl-k">.</span>hasNext()) {</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L87" class="blob-num js-line-number" data-line-number="87"></td>
+        <td id="file-colorblobdetector-java-LC87" class="blob-code blob-code-inner js-file-line">            <span class="pl-smi">MatOfPoint</span> wrapper <span class="pl-k">=</span> each<span class="pl-k">.</span>next();</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L88" class="blob-num js-line-number" data-line-number="88"></td>
+        <td id="file-colorblobdetector-java-LC88" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">double</span> area <span class="pl-k">=</span> <span class="pl-smi">Imgproc</span><span class="pl-k">.</span>contourArea(wrapper);</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L89" class="blob-num js-line-number" data-line-number="89"></td>
+        <td id="file-colorblobdetector-java-LC89" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">if</span> (area <span class="pl-k">&gt;</span> maxArea)</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L90" class="blob-num js-line-number" data-line-number="90"></td>
+        <td id="file-colorblobdetector-java-LC90" class="blob-code blob-code-inner js-file-line">                maxArea <span class="pl-k">=</span> area;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L91" class="blob-num js-line-number" data-line-number="91"></td>
+        <td id="file-colorblobdetector-java-LC91" class="blob-code blob-code-inner js-file-line">        }</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L92" class="blob-num js-line-number" data-line-number="92"></td>
+        <td id="file-colorblobdetector-java-LC92" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L93" class="blob-num js-line-number" data-line-number="93"></td>
+        <td id="file-colorblobdetector-java-LC93" class="blob-code blob-code-inner js-file-line">        <span class="pl-c"><span class="pl-c">//</span> Filter contours by area and resize to fit the original image size</span></td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L94" class="blob-num js-line-number" data-line-number="94"></td>
+        <td id="file-colorblobdetector-java-LC94" class="blob-code blob-code-inner js-file-line">        mContours<span class="pl-k">.</span>clear();</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L95" class="blob-num js-line-number" data-line-number="95"></td>
+        <td id="file-colorblobdetector-java-LC95" class="blob-code blob-code-inner js-file-line">        each <span class="pl-k">=</span> contours<span class="pl-k">.</span>iterator();</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L96" class="blob-num js-line-number" data-line-number="96"></td>
+        <td id="file-colorblobdetector-java-LC96" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">while</span> (each<span class="pl-k">.</span>hasNext()) {</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L97" class="blob-num js-line-number" data-line-number="97"></td>
+        <td id="file-colorblobdetector-java-LC97" class="blob-code blob-code-inner js-file-line">            <span class="pl-smi">MatOfPoint</span> contour <span class="pl-k">=</span> each<span class="pl-k">.</span>next();</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L98" class="blob-num js-line-number" data-line-number="98"></td>
+        <td id="file-colorblobdetector-java-LC98" class="blob-code blob-code-inner js-file-line">            <span class="pl-k">if</span> (<span class="pl-smi">Imgproc</span><span class="pl-k">.</span>contourArea(contour) <span class="pl-k">&gt;</span> mMinContourArea<span class="pl-k">*</span>maxArea) {</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L99" class="blob-num js-line-number" data-line-number="99"></td>
+        <td id="file-colorblobdetector-java-LC99" class="blob-code blob-code-inner js-file-line">                <span class="pl-smi">Core</span><span class="pl-k">.</span>multiply(contour, <span class="pl-k">new</span> <span class="pl-smi">Scalar</span>(<span class="pl-c1">4</span>,<span class="pl-c1">4</span>), contour);</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L100" class="blob-num js-line-number" data-line-number="100"></td>
+        <td id="file-colorblobdetector-java-LC100" class="blob-code blob-code-inner js-file-line">                mContours<span class="pl-k">.</span>add(contour);</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L101" class="blob-num js-line-number" data-line-number="101"></td>
+        <td id="file-colorblobdetector-java-LC101" class="blob-code blob-code-inner js-file-line">            }</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L102" class="blob-num js-line-number" data-line-number="102"></td>
+        <td id="file-colorblobdetector-java-LC102" class="blob-code blob-code-inner js-file-line">        }</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L103" class="blob-num js-line-number" data-line-number="103"></td>
+        <td id="file-colorblobdetector-java-LC103" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L104" class="blob-num js-line-number" data-line-number="104"></td>
+        <td id="file-colorblobdetector-java-LC104" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L105" class="blob-num js-line-number" data-line-number="105"></td>
+        <td id="file-colorblobdetector-java-LC105" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">public</span> <span class="pl-k">List&lt;<span class="pl-smi">MatOfPoint</span>&gt;</span> <span class="pl-en">getContours</span>() {</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L106" class="blob-num js-line-number" data-line-number="106"></td>
+        <td id="file-colorblobdetector-java-LC106" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">return</span> mContours;</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L107" class="blob-num js-line-number" data-line-number="107"></td>
+        <td id="file-colorblobdetector-java-LC107" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-colorblobdetector-java-L108" class="blob-num js-line-number" data-line-number="108"></td>
+        <td id="file-colorblobdetector-java-LC108" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/Elvis10ten/a948cd51db03cd8accead15d92cbb142/raw/1f20e060a0ba360f8eaa40f01aae93c0166c4f1e/ColorBlobDetector.java" style="float:right">view raw</a>
+        <a href="https://gist.github.com/Elvis10ten/a948cd51db03cd8accead15d92cbb142#file-colorblobdetector-java">ColorBlobDetector.java</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+<script>var height = -1; var delayMs = 200;function notifyResize(height) {height = height ? height : document.documentElement.offsetHeight; var resized = false; if (window.donkey && donkey.resize) {donkey.resize(height); resized = true;}if (parent && parent._resizeIframe) {var obj = {iframe: window.frameElement, height: height}; parent._resizeIframe(obj); resized = true;}if (window.location && window.location.hash === "#amp=1" && window.parent && window.parent.postMessage) {window.parent.postMessage({sentinel: "amp", type: "embed-size", height: height}, "*");}if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.resize) {window.webkit.messageHandlers.resize.postMessage(height); resized = true;}return resized;}function maybeResize() {if (document.documentElement.offsetHeight != height && notifyResize()) {height = document.documentElement.offsetHeight;}delayMs = Math.min(delayMs * 2, 1000000); setTimeout(maybeResize, delayMs);}maybeResize();</script></body></html>
