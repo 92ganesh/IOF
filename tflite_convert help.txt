@@ -1,0 +1,116 @@
+usage: tflite_convert [-h] --output_file OUTPUT_FILE
+                      (--graph_def_file GRAPH_DEF_FILE | --saved_model_dir SAVED_MODEL_DIR | --keras_model_file KERAS_MODEL_FILE)
+                      [--output_format {TFLITE,GRAPHVIZ_DOT}]
+                      [--inference_type {FLOAT,QUANTIZED_UINT8}]
+                      [--inference_input_type {FLOAT,QUANTIZED_UINT8}]
+                      [--input_arrays INPUT_ARRAYS]
+                      [--input_shapes INPUT_SHAPES]
+                      [--output_arrays OUTPUT_ARRAYS]
+                      [--saved_model_tag_set SAVED_MODEL_TAG_SET]
+                      [--saved_model_signature_key SAVED_MODEL_SIGNATURE_KEY]
+                      [--std_dev_values STD_DEV_VALUES]
+                      [--mean_values MEAN_VALUES]
+                      [--default_ranges_min DEFAULT_RANGES_MIN]
+                      [--default_ranges_max DEFAULT_RANGES_MAX]
+                      [--post_training_quantize] [--drop_control_dependency]
+                      [--reorder_across_fake_quant]
+                      [--change_concat_input_ranges {TRUE,FALSE}]
+                      [--allow_custom_ops]
+                      [--converter_mode {DEFAULT,TOCO_FLEX,TOCO_FLEX_ALL}]
+                      [--dump_graphviz_dir DUMP_GRAPHVIZ_DIR]
+                      [--dump_graphviz_video]
+
+Command line tool to run TensorFlow Lite Optimizing Converter (TOCO).
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --output_file OUTPUT_FILE
+                        Full filepath of the output file.
+  --graph_def_file GRAPH_DEF_FILE
+                        Full filepath of file containing frozen TensorFlow
+                        GraphDef.
+  --saved_model_dir SAVED_MODEL_DIR
+                        Full filepath of directory containing the SavedModel.
+  --keras_model_file KERAS_MODEL_FILE
+                        Full filepath of HDF5 file containing tf.Keras model.
+  --output_format {TFLITE,GRAPHVIZ_DOT}
+                        Output file format.
+  --inference_type {FLOAT,QUANTIZED_UINT8}
+                        Target data type of real-number arrays in the output
+                        file.
+  --inference_input_type {FLOAT,QUANTIZED_UINT8}
+                        Target data type of real-number input arrays. Allows
+                        for a different type for input arrays in the case of
+                        quantization.
+  --input_arrays INPUT_ARRAYS
+                        Names of the input arrays, comma-separated.
+  --input_shapes INPUT_SHAPES
+                        Shapes corresponding to --input_arrays, colon-
+                        separated.
+  --output_arrays OUTPUT_ARRAYS
+                        Names of the output arrays, comma-separated.
+  --saved_model_tag_set SAVED_MODEL_TAG_SET
+                        Comma-separated set of tags identifying the
+                        MetaGraphDef within the SavedModel to analyze. All
+                        tags must be present. (default "serve")
+  --saved_model_signature_key SAVED_MODEL_SIGNATURE_KEY
+                        Key identifying the SignatureDef containing inputs and
+                        outputs. (default DEFAULT_SERVING_SIGNATURE_DEF_KEY)
+  --std_dev_values STD_DEV_VALUES
+                        Standard deviation of training data for each input
+                        tensor, comma-separated floats. Used for quantized
+                        input tensors. (default None)
+  --mean_values MEAN_VALUES
+                        Mean of training data for each input tensor, comma-
+                        separated floats. Used for quantized input tensors.
+                        (default None)
+  --default_ranges_min DEFAULT_RANGES_MIN
+                        Default value for min bound of min/max range values
+                        used for all arrays without a specified range,
+                        Intended for experimenting with quantization via
+                        "dummy quantization". (default None)
+  --default_ranges_max DEFAULT_RANGES_MAX
+                        Default value for max bound of min/max range values
+                        used for all arrays without a specified range,
+                        Intended for experimenting with quantization via
+                        "dummy quantization". (default None)
+  --post_training_quantize
+                        Boolean indicating whether to quantize the weights of
+                        the converted float model. Model size will be reduced
+                        and there will be latency improvements (at the cost of
+                        accuracy). (default False)
+  --drop_control_dependency
+                        Boolean indicating whether to drop control
+                        dependencies silently. This is due to TensorFlow not
+                        supporting control dependencies. (default True)
+  --reorder_across_fake_quant
+                        Boolean indicating whether to reorder FakeQuant nodes
+                        in unexpected locations. Used when the location of the
+                        FakeQuant nodes is preventing graph transformations
+                        necessary to convert the graph. Results in a graph
+                        that differs from the quantized training graph,
+                        potentially causing differing arithmetic behavior.
+                        (default False)
+  --change_concat_input_ranges {TRUE,FALSE}
+                        Boolean to change behavior of min/max ranges for
+                        inputs and outputs of the concat operator for
+                        quantized models. Changes the ranges of concat
+                        operator overlap when true. (default False)
+  --allow_custom_ops    Boolean indicating whether to allow custom operations.
+                        When false any unknown operation is an error. When
+                        true, custom ops are created for any op that is
+                        unknown. The developer will need to provide these to
+                        the TensorFlow Lite runtime with a custom resolver.
+                        (default False)
+  --converter_mode {DEFAULT,TOCO_FLEX,TOCO_FLEX_ALL}
+                        Experimental flag, subject to change. ConverterMode
+                        indicating which converter to use. (default
+                        ConverterMode.DEFAULT)
+  --dump_graphviz_dir DUMP_GRAPHVIZ_DIR
+                        Full filepath of folder to dump the graphs at various
+                        stages of processing GraphViz .dot files. Preferred
+                        over --output_format=GRAPHVIZ_DOT in order to keep the
+                        requirements of the output file.
+  --dump_graphviz_video
+                        Boolean indicating whether to dump the graph after
+                        every graph transformation

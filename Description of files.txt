@@ -1,2 +1,7 @@
 CV2 - read and show img in opencv
 setupOpenCV - Procedure to setup openCV android
+
+
+!python3 drive/Colab/old/keras_to_tensorflow.py --input_model="drive/Colab/model.h5" --input_model_json="drive/Colab/model.json" --output_model="drive/Colab/model.pb"
+    
+print("end")
