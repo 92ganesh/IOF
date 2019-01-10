@@ -1,6 +1,15 @@
+version 2.3  
+- added app icon
+
+
+version 2.2
+- added 'option' activity
+
+
 version 2.1
 - added auto dir creation feature
 - fixed runtime crashes due to file not found
+
 
 version 2.0 
 - fixed saving problem of vertically fixed files
