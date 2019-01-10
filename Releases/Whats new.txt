@@ -1,5 +1,6 @@
 version 2.3  
 - added app icon
+- fixed bug in clearing options
 
 
 version 2.2
