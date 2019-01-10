@@ -1,0 +1,14 @@
+version 2.1
+- added auto dir creation feature
+- fixed runtime crashes due to file not found
+
+version 2.0 
+- fixed saving problem of vertically fixed files
+- vertically fixed images are now saved in folder called 'Intermediate'
+- changed naming convention of predicted samples to 'prediction-fileName'
+- added code for final rotation of image based on prediction of model and saved in fixed
+
+
+version 1.0
+- every module is in working condition
+- some known bugs exists which will be fixed in future releases
