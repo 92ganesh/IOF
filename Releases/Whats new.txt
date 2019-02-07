@@ -1,6 +1,6 @@
 version 2.4  
 - option to adjust hough threshold
-- intermediate images now shows hough lines
+- intermediate images now show hough lines
 
 version 2.3  
 - added app icon
